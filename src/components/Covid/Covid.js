@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import axios from "axios"
+import CardSmall from "../Cards/CardSmall";
+import CardPrincipal from "./../Cards/CardPrincipal";
+
+
 
 const Covid=() => {
 const [country, setCountry] = useState('Honduras');
@@ -22,7 +26,7 @@ const getData1 = (_date) =>{
       
       axios.request(options).then(function (response) {
     //   console.log(response.data[0].provinces[0].confirmed);
-     console.log(response.data);
+     //console.log(response.data);
      setDay1(response.data[0]);
      console.log("Promesa aceptada")
       }).catch(function (error) {
@@ -46,7 +50,7 @@ const getData2 = () =>{
       
       axios.request(options).then(function (response) {
     //   console.log(response.data[0].provinces[0].confirmed);
-     console.log(response.data);
+     //console.log(response.data);
      setDay2(response.data[0]);
      console.log("Promesa aceptada")
       }).catch(function (error) {
@@ -67,8 +71,8 @@ const getData3 = () =>{
       };
       
       axios.request(options).then(function (response) {
-    //   console.log(response.data[0].provinces[0].confirmed);
-     console.log(response.data);
+    //console.log(response.data[0].provinces[0].confirmed);
+     //console.log(response.data);
      setDay3(response.data[0]);
      console.log("Promesa aceptada")
       }).catch(function (error) {
@@ -146,8 +150,42 @@ const onChangeHandler = event => {
                 <p>Activos: {day3.provinces[0].active}</p>
                 </div>:
                 <p>No hay datos para esta fecha</p>
+
+                
             }
+
+        <section>
+            <section class="h-screen">
+              <CardPrincipal title="Panorama Actual" dataInfectados={[300]} dataMuertes={[200]} dataRecuperados={[75]} dataActivos={[420]}></CardPrincipal>
+            </section>
+
+            <section class="flex justify-center items-center">
+              <h2 class="text-3xl md:text-6xl">Ultimos Datos Obtenidos</h2>
+            </section>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
+                <div class="flex justify-center items-center">
+              <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[300]} ayer={[200]} antier={[150]}></CardSmall>
+                </div>
+              <div class="flex justify-center items-center">
+                <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[400]} ayer={[120]} antier={[215]}></CardSmall>
+              </div>
+              <div class="flex justify-center items-center">
+                <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[210]} ayer={[250]} antier={[230]}></CardSmall>
+              </div>
+              <div class="flex justify-center items-center">
+                <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[180]} ayer={[155]} antier={[175]}></CardSmall>
+              </div>
+            </section>
+            <footer class="w-full h-20 bg-gray-900 text-white flex items-center justify-center">
+            Desarrollo de Portales Web 2, Grupo 2 &copy; 2021
+            </footer>
+        </section>
+
         </div>
+
+       
+
     )
 }
 
