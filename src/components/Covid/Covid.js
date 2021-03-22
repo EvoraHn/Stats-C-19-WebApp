@@ -100,7 +100,7 @@ const allData = async() =>{
     console.log(day2);
     await setTimeout(function delay (){
         getData3()
-    },3000)
+    },5000)
    // setDay3(aux);
     //setAux(null);
     console.log("Day 3 es: ");
@@ -117,6 +117,22 @@ const onChangeHandler = event => {
     setCountry(event.target.value);
     console.log(country);
 };
+/*<p>{day1.country}</p>
+                <p>Casos confirmados: {day1.provinces[0].confirmed}</p>
+                <p>Recuperados: {day1.provinces[0].recovered}</p>
+                <p>Fallecidos: {day1.provinces[0].deaths}</p>
+                <p>Activos: {day1.provinces[0].active}</p>
+
+                <br/>
+                <p>Casos confirmados: {day2.provinces[0].confirmed}</p>
+                <p>Recuperados: {day2.provinces[0].recovered}</p>
+                <p>Fallecidos:{day2.provinces[0].deaths}</p>
+                <p>Activos: {day2.provinces[0].active}</p>
+                <br/>
+                <p>Casos confirmados: {day3.provinces[0].confirmed}</p>
+                <p>Recuperados: {day3.provinces[0].recovered}</p>
+                <p>Fallecidos:{day3.provinces[0].deaths}</p>
+                <p>Activos: {day3.provinces[0].active}</p> */
 
     return (
         <div>
@@ -132,24 +148,26 @@ const onChangeHandler = event => {
             {
                 day2&&day1&&day3?
                 <div>
-                <p>{day1.country}</p>
-                <p>Casos confirmados: {day1.provinces[0].confirmed}</p>
-                <p>Recuperados: {day1.provinces[0].recovered}</p>
-                <p>Fallecidos: {day1.provinces[0].deaths}</p>
-                <p>Activos: {day1.provinces[0].active}</p>
+                  <section class="flex justify-center items-center">
+                    <h2 class="text-3xl md:text-6xl">Ultimos Datos Obtenidos</h2>
+                  </section>
 
-                <br/>
-                <p>Casos confirmados: {day2.provinces[0].confirmed}</p>
-                <p>Recuperados: {day2.provinces[0].recovered}</p>
-                <p>Fallecidos:{day2.provinces[0].deaths}</p>
-                <p>Activos: {day2.provinces[0].active}</p>
-                <br/>
-                <p>Casos confirmados: {day3.provinces[0].confirmed}</p>
-                <p>Recuperados: {day3.provinces[0].recovered}</p>
-                <p>Fallecidos:{day3.provinces[0].deaths}</p>
-                <p>Activos: {day3.provinces[0].active}</p>
-                </div>:
-                <p>No hay datos para esta fecha</p>
+                  <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
+                      <div class="flex justify-center items-center">
+                    <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[day3.provinces[0].confirmed]} ayer={[day2.provinces[0].confirmed]} antier={[day1.provinces[0].confirmed]}></CardSmall>
+                      </div>
+                    <div class="flex justify-center items-center">
+                      <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[day3.provinces[0].active]} ayer={[day2.provinces[0].active]} antier={[day1.provinces[0].active]}></CardSmall>
+                    </div>
+                    <div class="flex justify-center items-center">
+                      <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[day3.provinces[0].recovered]} ayer={[day2.provinces[0].recovered]} antier={[day1.provinces[0].recovered]}></CardSmall>
+                    </div>
+                    <div class="flex justify-center items-center">
+                      <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[day3.provinces[0].deaths]} ayer={[day2.provinces[0].deaths]} antier={[day1.provinces[0].deaths]}></CardSmall>
+                    </div>
+                    </section>
+                  </div>:
+                  <p>No hay datos para esta fecha</p>
 
                 
             }
@@ -158,33 +176,12 @@ const onChangeHandler = event => {
             <section class="h-screen">
               <CardPrincipal title="Panorama Actual" dataInfectados={[300]} dataMuertes={[200]} dataRecuperados={[75]} dataActivos={[420]}></CardPrincipal>
             </section>
-
-            <section class="flex justify-center items-center">
-              <h2 class="text-3xl md:text-6xl">Ultimos Datos Obtenidos</h2>
-            </section>
-
-            <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
-                <div class="flex justify-center items-center">
-              <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[300]} ayer={[200]} antier={[150]}></CardSmall>
-                </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[400]} ayer={[120]} antier={[215]}></CardSmall>
-              </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[210]} ayer={[250]} antier={[230]}></CardSmall>
-              </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[180]} ayer={[155]} antier={[175]}></CardSmall>
-              </div>
-            </section>
             <footer class="w-full h-20 bg-gray-900 text-white flex items-center justify-center">
             Desarrollo de Portales Web 2, Grupo 2 &copy; 2021
             </footer>
         </section>
 
         </div>
-
-       
 
     )
 }
