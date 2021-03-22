@@ -136,15 +136,25 @@ const onChangeHandler = event => {
 
     return (
         <div>
-            <h1>Hola</h1>
-            <input
-            type="text"
-            name="name"
-            onChange={onChangeHandler}
-            value={country}
-          />
-            <button
-            onClick={allData}>Presiona</button>
+            <section class="flex justify-center items-center">
+              <h1 class="text-3xl md:text-6xl">Bienvenidos a COVID STATS</h1>
+            </section>
+            <section class="flex justify-center items-center m-5">
+            <section className="text-sm ">
+              <h2 className="sm:text-lg">Nombre del pais </h2>
+            </section>
+              <input
+              type="text"
+              name="name"
+              onChange={onChangeHandler}
+              value={country}
+              className="m-3 px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-lg shadow  focus:outline-none focus:shadow-outline w-6/12 "
+              />
+              <button
+              onClick={allData}
+              className="cursor-pointer bg-green-600 hover:bg-green-500 shadow-xl px-5 py-2 inline-block text-green-100 hover:text-white rounded"
+              >Buscar</button>
+            </section>
             {
                 day2&&day1&&day3?
                 <div>
