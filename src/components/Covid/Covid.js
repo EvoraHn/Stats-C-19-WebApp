@@ -7,7 +7,7 @@ import firebase from '../../FireBaseInit'
 
 
 const Covid = () => {
-  const [country, setCountry] = useState('Honduras');
+  const [country, setCountry] = useState('Mexico');
   const [aux, setAux] = useState(null);
   const [day1, setDay1] = useState();
   const [day2, setDay2] = useState();
