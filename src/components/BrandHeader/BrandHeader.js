@@ -1,11 +1,16 @@
 import NavBar from "../NavBars/NavBar";
 import Brand from "./Brand";
 import "./BrandHeader.css";
+
+
 function BrandHeader({ children }){
   return (
     <header>
-      <Brand title="Mi App con react."></Brand>
+     
+      <Brand  title="Covid Stats"></Brand>
+     
       <NavBar></NavBar>
+     
     </header>
   );
 }
