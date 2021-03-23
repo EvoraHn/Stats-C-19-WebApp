@@ -12,6 +12,94 @@ const [day1, setDay1] = useState(null);
 const [day2, setDay2] = useState(null);
 const [day3, setDay3] = useState(null);
 
+//firebase inicio
+
+const data ={
+  country:"Honduras",
+  code:"HN",
+  data:{
+
+  },
+ }
+
+const addDateFirebase = (data) =>{
+
+  firebase.database().ref('covid/'+ country).set({
+   data
+  });
+}
+
+const dataPrueba ={
+  
+    datetime:"2020-04-23",
+    confirmed:"220",
+    recovered:"4810",
+    critical:"299",
+    deaths:"52",
+  
+}
+const UpdateFirebase = (data) =>{
+ let covidAdd= firebase.database().ref('covid/'+country+'/data/data');
+ let NewCovidAdd= covidAdd.push('dato4');
+  NewCovidAdd.set({
+  data
+  });
+}
+
+const readDatabase = () =>{
+ // firebase.auth().currentUser.uid
+  const readFirebase = firebase.database().ref('covid/'+country+'/data/data')
+  readFirebase.on('value', (snapshot)=>{
+    const data = snapshot.val();
+    
+    console.log (data)
+    for (const properti in data){
+      const readDataFirebase =firebase.database().ref('covid/'+country+'/data/data/'+properti+'/data/recovered')
+      readDataFirebase.on ('value',(snapshots)=>{
+        const dataa = snapshots.val()
+        console.log(dataa)
+      })
+    }
+    data? console.log(true) : console.log(false)
+  })
+}
+
+const dataFireBase = () => {
+  
+  const comfirDataFire = firebase.database().ref('covid/')
+  comfirDataFire.on ('value',(snapshot)=>{
+    const validate = snapshot.val()
+    console.log(validate)
+    
+    for (const properti in validate)
+    {
+      let valideteConfirm
+      if (properti === country)
+      valideteConfirm = properti
+      else
+      valideteConfirm ="no existe en covids"
+
+      console.log(validateConfirm)
+      
+    }
+
+
+  })
+ 
+
+}
+
+useEffect(()=>{
+ // addDateFirebase(data)
+//UpdateFirebase(dataPrueba)
+//readDatabase();
+dataFireBase()
+  },[]); 
+
+
+/// firebase final
+
+
 
 const getData1 = (_date) =>{
     const options = {
