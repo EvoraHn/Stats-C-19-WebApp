@@ -9,14 +9,14 @@ import firebase from '../../FireBaseInit'
 const Covid = () => {
   const [country, setCountry] = useState('Mexico');
   const [aux, setAux] = useState(null);
-  const [day1, setDay1] = useState();
-  const [day2, setDay2] = useState();
-  const [day3, setDay3] = useState();
-  const [RecoveredFB, setRecoveredFB] = useState(null)
-  const [datetimeFB, setDateTimeFB] = useState(null)
-  const [confirmedFB, setConfirmedFB] = useState(null)
-  const [deathsFB, setdeathsFB] = useState(null)
-  const [actives, setActivesFB] = useState(null)
+  const [day1, setDay1] = useState("");
+  const [day2, setDay2] = useState("");
+  const [day3, setDay3] = useState("");
+  const [RecoveredFB, setRecoveredFB] = useState(100)
+  const [datetimeFB, setDateTimeFB] = useState("2020-03-29")
+  const [confirmedFB, setConfirmedFB] = useState(200)
+  const [deathsFB, setdeathsFB] = useState(200)
+  const [actives, setActivesFB] = useState(200)
  /* const [showRecoveredFB, setsRecoveredFB] = useState(null)
   const [showdatetimeFB, setsDateTimeFB] = useState(null)
   const [showconfirmedFB, setsConfirmedFB] = useState(null)
@@ -71,26 +71,7 @@ const Covid = () => {
 
  
 
-   
-  const CardsSmallshow = () =>{
-    return (
-     <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
-     <div class="flex justify-center items-center">
-       <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[confirmedFB[2]]} ayer={[confirmedFB[1]]} antier={[confirmedFB[0]]}></CardSmall>
-     </div>
-     <div class="flex justify-center items-center">
-       <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[actives[2]]} ayer={[actives[1]]} antier={[actives[0]]}></CardSmall>
-     </div>
-     <div class="flex justify-center items-center">
-       <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[RecoveredFB[2]]} ayer={[RecoveredFB[1]]} antier={[RecoveredFB[0]]}></CardSmall>
-     </div>
-     <div class="flex justify-center items-center">
-       <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[deathsFB[2]]} ayer={[deathsFB[1]]} antier={[deathsFB[0]]}></CardSmall>
-     </div>
-   </section>
-    )
-  
-   }
+
 
   /////
 
@@ -316,7 +297,7 @@ const Covid = () => {
 
   //    datasday(day1)
     },1000 )
-    //  setDay1(aux);
+     setDay1(aux);
     // setAux(null);
     console.log("Day 1 es: ");
     console.log(day1);
@@ -329,7 +310,7 @@ const Covid = () => {
     
 
     },2000)
-    //  setDay2(aux);
+     setDay2(aux);
     //  setAux(null);
    
     console.log(day2);
@@ -340,12 +321,12 @@ const Covid = () => {
     await setTimeout(function delay() {
       getData3()
 
-   //   datasday3(day3)
+   //  datasday3(day3)
       console.log("Day 3 es: ");
     console.log(day3);  
     
     },5000)
-    // setDay3(aux);
+    setDay3(aux);
     //setAux(null);
     console.log("Day 3 es: ");
     console.log(day3);
@@ -380,6 +361,27 @@ const Covid = () => {
   
    }
 
+
+      
+  const CardsSmallshow = () =>{
+    return (
+     <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
+     <div class="flex justify-center items-center">
+       <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[confirmedFB[2]]} ayer={[confirmedFB[1]]} antier={[confirmedFB[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[actives[2]]} ayer={[actives[1]]} antier={[actives[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[RecoveredFB[2]]} ayer={[RecoveredFB[1]]} antier={[RecoveredFB[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[deathsFB[2]]} ayer={[deathsFB[1]]} antier={[deathsFB[0]]}></CardSmall>
+     </div>
+   </section>
+    )
+  
+   }
 
 
 
