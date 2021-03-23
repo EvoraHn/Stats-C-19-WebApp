@@ -9,14 +9,20 @@ import firebase from '../../FireBaseInit'
 const Covid = () => {
   const [country, setCountry] = useState('Honduras');
   const [aux, setAux] = useState(null);
-  const [day1, setDay1] = useState(null);
-  const [day2, setDay2] = useState(null);
-  const [day3, setDay3] = useState(null);
+  const [day1, setDay1] = useState();
+  const [day2, setDay2] = useState();
+  const [day3, setDay3] = useState();
   const [RecoveredFB, setRecoveredFB] = useState(null)
   const [datetimeFB, setDateTimeFB] = useState(null)
   const [confirmedFB, setConfirmedFB] = useState(null)
   const [deathsFB, setdeathsFB] = useState(null)
   const [actives, setActivesFB] = useState(null)
+ /* const [showRecoveredFB, setsRecoveredFB] = useState(null)
+  const [showdatetimeFB, setsDateTimeFB] = useState(null)
+  const [showconfirmedFB, setsConfirmedFB] = useState(null)
+  const [showdeathsFB, setsdeathsFB] = useState(null)
+  const [showactives, setsActivesFB] = useState(null)
+*/
   //firebase inicio
 
   //let Intento = Object.values(RecoveredFB);
@@ -26,7 +32,13 @@ const Covid = () => {
   console.log(confirmedFB)
   console.log(deathsFB)
   
-
+  /*
+  setsConfirmedFB(confirmedFB)
+  setsRecoveredFB(RecoveredFB)
+  setsdeathsFB(deathsFB)
+  setsDateTimeFB(datetimeFB)
+  setsActivesFB(actives)
+*/
 
   const addDateFirebase = () => {
     const data = {
@@ -52,6 +64,35 @@ const Covid = () => {
       data
     });
   }
+
+
+
+  //////
+
+ 
+
+   
+  const CardsSmallshow = () =>{
+    return (
+     <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
+     <div class="flex justify-center items-center">
+       <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[confirmedFB[2]]} ayer={[confirmedFB[1]]} antier={[confirmedFB[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[actives[2]]} ayer={[actives[1]]} antier={[actives[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[RecoveredFB[2]]} ayer={[RecoveredFB[1]]} antier={[RecoveredFB[0]]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[deathsFB[2]]} ayer={[deathsFB[1]]} antier={[deathsFB[0]]}></CardSmall>
+     </div>
+   </section>
+    )
+  
+   }
+
+  /////
 
   const readDatabase = () => {
     // firebase.auth().currentUser.uid
@@ -122,10 +163,13 @@ const Covid = () => {
          // setRecoveredFB(dataa)
         })
       }
-
-      !data ? console.log(true) : console.log(false)
+    
     })
+
+   
+
   }
+  
 
   const dataFireBase = () => {
 
@@ -134,7 +178,9 @@ const Covid = () => {
     readFirebase.on('value', (snapshot) => {
       const data = snapshot.val();
 
-      data ? readDatabase() : allData()
+      if(data) { readDatabase()  }
+      else { allData() }
+      
     })
   }
 
@@ -220,70 +266,122 @@ const Covid = () => {
   }
 
 
+  const datasday = (days1) =>{
+
+    const data = {
+
+      datetime: days1.date,
+      confirmed:days1.provinces[0].confirmed,
+      recovered:days1.provinces[0].recovered ,
+      active:days1.provinces[0].active,
+      deaths: days1.provinces[0].deaths,
+
+    }
+    UpdateFirebase(data)
+
+  }
+  const datasday2 =  (days2)=>{
+
+    const data = {
+
+      datetime: days2.date,
+      confirmed:days2.provinces[0].confirmed,
+      recovered:days2.provinces[0].recovered ,
+      active:days2.provinces[0].active,
+      deaths: days2.provinces[0].deaths,
+
+    }
+    UpdateFirebase(data)
+
+  }
+
+  const datasday3 =  (days3)=>{
+    console.log(days3)
+   const data  = {
+      datetime: days3.date,
+      confirmed:days3.provinces[0].confirmed,
+      recovered:days3.provinces[0].recovered ,
+      active:days3.provinces[0].active,
+      deaths: days3.provinces[0].deaths,
+
+    }
+    UpdateFirebase(data)
+  }
+
 
   const allData = async () => {
-    await setTimeout(function delay() {
-      getData1()
-      const data = {
 
-        datetime: day1.date,
-        confirmed:day1.provinces[0].confirmed,
-        recovered:day1.provinces[0].recovered ,
-        active:day1.provinces[0].active,
-        deaths: day1.provinces[0].deaths,
-  
-      }
-  
-      UpdateFirebase(data)
-    }, 1000)
+    await setTimeout(function delay() {
+      getData1()   
+
+  //    datasday(day1)
+    },1000 )
     //  setDay1(aux);
     // setAux(null);
     console.log("Day 1 es: ");
     console.log(day1);
+ 
+    
     await setTimeout(function delay() {
       getData2()
+      console.log(day2);
+      //datasday2(day2)
+    
 
-      const data = {
-
-        datetime: day2.date,
-        confirmed:day2.provinces[0].confirmed,
-        recovered:day2.provinces[0].recovered ,
-        active:day2.provinces[0].active,
-        deaths: day2.provinces[0].deaths,
-  
-      }
-      UpdateFirebase(data)
-
-    }, 3000)
+    },2000)
     //  setDay2(aux);
     //  setAux(null);
-    console.log("Day 2 es: ");
+   
     console.log(day2);
+
+    
+
+
     await setTimeout(function delay() {
       getData3()
 
-      const data = {
-
-        datetime: day3.date,
-        confirmed:day3.provinces[0].confirmed,
-        recovered:day3.provinces[0].recovered ,
-        active:day3.provinces[0].active,
-        deaths: day3.provinces[0].deaths,
-  
-      }
-      UpdateFirebase(data)
-    }, 5000)
+   //   datasday3(day3)
+      console.log("Day 3 es: ");
+    console.log(day3);  
+    
+    },5000)
     // setDay3(aux);
     //setAux(null);
     console.log("Day 3 es: ");
     console.log(day3);
+
+    
+    
+    
+  
     //alert("Finalizada")
+
+ 
+
   }
 
+  const CardsSmalld = () =>{
+    return (
+     <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
+     <div class="flex justify-center items-center">
+       <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[day3.provinces[0].confirmed]} ayer={[day2.provinces[0].confirmed]} antier={[day1.provinces[0].confirmed]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[day3.provinces[0].active]} ayer={[day2.provinces[0].active]} antier={[day1.provinces[0].active]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[day3.provinces[0].recovered]} ayer={[day2.provinces[0].recovered]} antier={[day1.provinces[0].recovered]}></CardSmall>
+     </div>
+     <div class="flex justify-center items-center">
+       <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[day3.provinces[0].deaths]} ayer={[day2.provinces[0].deaths]} antier={[day1.provinces[0].deaths]}></CardSmall>
+     </div>
+   </section>
+    )
+  
+   }
 
-  useEffect(() => {
-    //  getData2("2020-03-03")
-  }, [])
+
+
 
   const onChangeHandler = event => {
     setCountry(event.target.value);
@@ -331,34 +429,22 @@ const Covid = () => {
           className="m-3 px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-lg shadow  focus:outline-none focus:shadow-outline w-6/12 "
         />
         <button
-          onClick={allData}
+          onClick={dataFireBase}
           className="cursor-pointer bg-green-600 hover:bg-green-500 shadow-xl px-5 py-2 inline-block text-green-100 hover:text-white rounded"
         >Buscar</button>
       </section>
       {
-        day2 && day1 && day3 ?
+        (day2 && day1 && day3 ) ? 
           <div>
             <section class="flex justify-center items-center">
               <h2 class="text-3xl md:text-6xl">Ultimos Datos Obtenidos</h2>
             </section>
 
-            <section class="grid grid-cols-1 md:grid-cols-2 align-center justify-center">
-              <div class="flex justify-center items-center">
-                <CardSmall title="Confirmados" class="col-span-1 m-auto" hoy={[day3.provinces[0].confirmed]} ayer={[day2.provinces[0].confirmed]} antier={[day1.provinces[0].confirmed]}></CardSmall>
-              </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Activos" class="col-span-1 m-auto" hoy={[day3.provinces[0].active]} ayer={[day2.provinces[0].active]} antier={[day1.provinces[0].active]}></CardSmall>
-              </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Recuperados" class="col-span-1 m-auto" hoy={[day3.provinces[0].recovered]} ayer={[day2.provinces[0].recovered]} antier={[day1.provinces[0].recovered]}></CardSmall>
-              </div>
-              <div class="flex justify-center items-center">
-                <CardSmall title="Muertos" class="col-span-1 m-auto" hoy={[day3.provinces[0].deaths]} ayer={[day2.provinces[0].deaths]} antier={[day1.provinces[0].deaths]}></CardSmall>
-              </div>
-            </section>
-          </div> :
-          <p>No hay datos para esta fecha</p>
+          <CardsSmalld />
+  
 
+          </div> :
+          (RecoveredFB)? <CardsSmallshow/> :<p>No hay datos</p>
 
       }
 
@@ -375,5 +461,6 @@ const Covid = () => {
 
   )
 }
+
 
 export default Covid;
